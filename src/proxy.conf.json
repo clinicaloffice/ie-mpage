@@ -1,0 +1,11 @@
+{
+  "/cclproxy/*": {
+    "target": "http://yourdomain.cerncd.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/cclproxy": ""
+    }
+  }
+}
