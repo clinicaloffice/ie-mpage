@@ -12,7 +12,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mPage.setMaxInstances(2, true, 'ORG');
+//    this.mPage.enableProxy = true;
+    this.mPage.contextRoot = 'discern/cerner_domain.short_name.host_name.com/mpages/reports/1co3_mpage_entry:group1';
+
+    this.mPage.setMaxInstances(2, true, 'CHART');
   }
 
 }

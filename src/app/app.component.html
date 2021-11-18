@@ -1,3 +1,152 @@
 <h1>Welcome to Clinical Office: MPage Edition</h1>
+<hr/>
+<p>
+  You have successfully installed the Clinical Office: MPage Edition Internet Explorer template.
+  This template has been designed to include the optimal packages and settings required to start your
+  Internet Explorer/MS Edge compatible MPage project.
+</p>
+<p>
+  This template includes references to the newest version of Clinical Office: MPage Edition and several third-party
+  libraries which are listed below.
+</p>
+
+<p>The following third party packages have been included with this release</p>
+<ul>
+  <li>Angular Material/CDK (<a href="https://material.angular.io/" target="_blank">https://material.angular.io</a>)</li>
+  <li>moment.js (<a href="https://momentjs.com/" target="_blank">https://momentjs.com</a>)</li>
+  <li>Angular Material Moment Date Adapter (
+    <a href="https://www.npmjs.com/package/@angular/material-moment-adapter" target="_blank">
+      https://www.npmjs.com/package/@angular/material-moment-adapter
+    </a>)
+  </li>
+  <li>Angular Flex Layout (<a href="https://github.com/angular/flex-layout">https://github.com/angular/flex-layout</a>)
+  </li>
+</ul>
+
+<p>
+  In addition to the above libraries, this template also takes care of the following steps normally required to
+  initiate an MPage.
+</p>
+<ul>
+  <li>index.html file contains all required Cerner references and setup (meta tags, fonts, etc.)</li>
+  <li>Required polyfills are included and app.module.ts contains all required references to installed libraries.</li>
+  <li>
+    Material Moment Date adapter settings are configured in app.module.ts (Please change date settings to your
+    site standards if required. Currently set as mm/dd/yyyy)
+  </li>
+  <li>
+    styles.css has a basic Material theme setup which points to an external scss file called theme.scss. This
+    file can be manually edited or you can use the visual editor found at
+    <a href="https://materialtheme.arcsine.dev" target="_blank">https://materialtheme.arcsine.dev</a> to define your
+    own theme. Simply go to the web site, change the theme settings to your site requirements, click the SCSS button
+    and copy the content over the content in theme.scss.
+  </li>
+  <li>
+    A basic routing configuration has been built where you can add your own routes to app-routing.module.ts. The
+    useHash configuration has been enabled to allow proper route rendering within Cerner. Simply add your routes and
+    include the &lt;router-outlet&gt;&lt;/router-outlet&gt; element on your page and you are all set.
+  </li>
+</ul>
+
+<h2>Next steps</h2>
+
+<p>
+  The first thing you will want to do is make this template your own by customizing the following and publishing
+  your modified template to <a href="https://github.com/" target="_blank">https://github.com</a>. You should have
+  already cloned this template as <b>yourorganization</b>/ie-mpage so any changes you make will be reflected in your
+  organization version.
+</p>
+<p>
+  Some things you may want to change are:
+</p>
+<ul>
+  <li>Add proxy settings to allow live development of your MPages (see instructions below)</li>
+  <li>
+    Increase or decrease the number of Clinical Office instance queues in app.component.ts. Currently
+    instances are set to 2.
+  </li>
+  <li>Modify the theme as mentioned above.</li>
+  <li>Install any addition NPM packages you want used on every MPage.</li>
+  <li>Add any site specific graphics (e.g. hospital logo) to the assets folder.</li>
+</ul>
+
+<h2>Live Development with the Angular Proxy</h2>
+<p>
+  Angular offers a built in server that allows you to develop your Angular applications and perform real-time testing
+  as you develop your code. From a command line, you simply type in the following line and open your web browser to
+  <a href="http://localhost:4200">http://localhost:4200</a> to see your results as you make changes.
+</p>
+<code><pre>ng serve</pre></code>
+<p>
+  To establish a connection with Cerner you need to be able to access the Discern Web Services. Due to CORS security
+  issues you normally cannot access an API that has not specifically granted access to your domain (in this case
+  localhost). Angular offers a proxy server as part of "ng serve" that let's you redirect your CCL requests through
+  the proxy and to the Discern MPages Web Services API.
+</p>
+<p>
+  This may sound complex however setup is simple and the following few steps will help you get setup quickly. The
+  only requirement is that the machine you are working on is on your hospital network and can access Cerner
+  Discern MPages from your development machine.
+</p>
+<h3>Step 1</h3>
+<p>
+  To determine your proxy settings, you can use the following select statement in CCL to retrieve the pieces you need.
+</p>
+<code><pre>
+select d.info_char from dm_info d where d.info_domain = "INS" and d.info_name = "CONTENT_SERVICE_URL"
+</pre></code>
+
+<p>
+  This will return a result in the format of
+  http://<b>[sub_domain]</b>/mpage-content/<b>[cerner_domain]</b>.<b>[short_name]</b>.<b>[host_name]</b>.com.
+  Please make sure this string is available as you will need to take pieces of it to build your proxy settings.
+</p>
+
+<p>
+  For example: http://abcdeanp/mpage-content/b123.abcd_cd.cerncd.com
+</p>
+
+<h3>Step 2</h3>
+<p>
+  Included in this template is a file in the src folder called <b>proxy.conf.json</b>. The content is shown below.
+  Replace the value "http://sub_domain.host_name.com" with the top level domain name of your Discern MPages server.
+  Use the values extracted from the string above as a guide (e.g. abcdeanp.cerncd.com).
+</p>
+<code><pre>
+&#123;
+  "/cclproxy/*": &#123;
+    "target": "http://<b>sub_domain</b>.<b>host_name</b>.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": &#123;
+      "^/cclproxy": ""
+    &#125;
+  &#125;
+&#125;
+</pre></code>
+
+<h3>Step 3</h3>
+<p>
+  Modify the constructor method in <b>app.component.ts</b> to include your proxy settings. This includes two steps.
+</p>
+<ol>
+  <li>Uncomment the <code>this.mPage.enableProxy = true;</code> line.</li>
+  <li>
+    Update the contextRoot variable with your site specific variables. Replace cerner_domain, short_name and host_name
+    with your site specific values.
+    <br />
+    <code>this.mPage.contextRoot = 'discern/<b>cerner_domain</b>.<b>short_name</b>.<b>host_name</b>.com/mpages/reports/1co3_mpage_entry:group1';</code>
+  </li>
+</ol>
+
+<h4>Step 4</h4>
+<p>
+  Start your Angular server by issuing the <code>ng serve</code> command from a command line. Open your browser to
+  <a href="http://localhost:4200">http://localhost:4200</a> and if everything is correct you should be prompted to
+  enter your Cerner username and password. For your user name, add @cerner_domain where cerner_domain is the same as
+  the domain name you wish to log into (e.g. jsimpson@b123).
+</p>
 
 <mpage-log-component></mpage-log-component>
+
