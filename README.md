@@ -8,6 +8,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Angular 12 is the last version that supports Internet Explorer. Any version of Angular 12 equal to
 or greater than 12.2.13 except 12.2.14 will work with Clinical Office.
 
+>**A Valid Clinical Office:MPage Edition license is required to use this template.
+> If you do not have your development computer configured with your license key 
+> this template will not compile.**
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically 
