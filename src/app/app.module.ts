@@ -1,6 +1,7 @@
 import {NgModule, ErrorHandler} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ClinicalOfficeMpageModule} from "@clinicaloffice/clinical-office-mpage";
 import {MaterialModule} from "@clinicaloffice/clinical-office-mpage";
 import {ErrorHandlerService} from "@clinicaloffice/clinical-office-mpage";
@@ -21,6 +22,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatMomentDateModule
   ],
   providers: [
