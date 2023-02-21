@@ -55,7 +55,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * Angular Material/CDK (https://material.angular.io)
 * moment.js (https://momentjs.com)
 * Angular Material Moment Date Adapter (https://www.npmjs.com/package/@angular/material-moment-adapter)
-* Angular Flex Layout (https://github.com/angular/flex-layout)
 
 ##Additional Information
 In addition to the above libraries, this template also takes care of the following steps 
