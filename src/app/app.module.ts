@@ -9,7 +9,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {FlexLayoutModule} from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     ClinicalOfficeMpageModule,
     MaterialModule,
     AppRoutingModule,
-    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     MatMomentDateModule
