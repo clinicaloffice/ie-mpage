@@ -63,3 +63,5 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+import 'iframe-resizer/js/iframeResizer.contentWindow.js';
